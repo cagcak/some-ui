@@ -1,0 +1,8 @@
+{
+  "Home": "Anasayfa",
+  "Profile": "Profilim",
+  "Contact Us": "İletişim",
+  "app": {
+    "footer": "Some UI, NGXS state management ve material tasarım ile desteklenmiş bir Angular 11 web uygulamasıdır"
+  }
+}

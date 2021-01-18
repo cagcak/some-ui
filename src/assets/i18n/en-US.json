@@ -1,0 +1,5 @@
+{
+  "app": {
+    "footer": "Some UI is an Angular 11 application powered by NGXS state management and angular material"
+  }
+}

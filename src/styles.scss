@@ -1,0 +1,99 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  color: var(--text-color-hard);
+  font-weight: 400;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.app-layout {
+  height: 100%;
+
+  .content-layout {
+    height: 95%;
+  }
+
+  .footer-layout {
+    height: 5%;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    & h3 {
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
+
+.mat-sidenav-container {
+  height: 100%;
+}
+
+.mat-sidenav {
+  width: 320px;
+}
+
+.card-wrapper {
+  width: calc(100% - 48px);
+  max-width: 460px;
+  margin: 24px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.mat-card {
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.page-header {
+  margin: 60px !important;
+}
+
+$inside-primary: mat-palette($mat-light-blue);
+$inside-accent: mat-palette($mat-light-blue);
+$inside-warn: mat-palette($mat-red);
+$inside-theme-dark: mat-dark-theme(
+  $inside-primary,
+  $inside-accent,
+  $inside-warn
+);
+$inside-theme-light: mat-light-theme(
+  $inside-primary,
+  $inside-accent,
+  $inside-warn
+);
+
+.color-scheme-dark {
+  @include angular-material-theme($inside-theme-dark);
+  .card-wrapper {
+    color: #d0d0d0;
+  }
+}
+
+.color-scheme-light {
+  @include angular-material-theme($inside-theme-light);
+  .card-wrapper {
+    color: #2d2d2d;
+  }
+}
