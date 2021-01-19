@@ -10,10 +10,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           cite="https://www.goodreads.com/author/quotes/2793859.Mustafa_Kemal_Atat_rk"
         >
           <p>
-            {{
-              'Authority, without any condition and reservation, belongs to the nation.'
-                | translate
-            }}
+            {{ 'app.home' | translate }}
           </p>
         </blockquote>
         <figcaption>

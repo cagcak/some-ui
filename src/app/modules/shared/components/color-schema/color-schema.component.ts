@@ -4,8 +4,8 @@ import { ColorSchemeService } from '../../services';
 @Component({
   selector: 'app-color-schema',
   template: `
-    <button mat-button [matMenuTriggerFor]="menu">
-      {{ 'Mode' | translate }}
+    <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu">
+      <mat-icon>invert_colors</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <ng-container *ngFor="let theme of themes">

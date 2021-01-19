@@ -14,7 +14,8 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@shared": ["src/app/modules/shared/index.ts"]
+      "@shared": ["src/app/modules/shared/index.ts"],
+      "@store": ["src/app/store/index.ts"]
     }
   }
 }

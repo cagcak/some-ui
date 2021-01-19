@@ -9,8 +9,14 @@ export class LocalStorageService implements StorageEngine {
     return window.localStorage.length;
   }
 
-  getItem(key: string | number): any {
-    window.localStorage.getItem(String(key));
+  getItem(key: string | number, param?: string | number): any {
+    const storedItem = window.localStorage.getItem(String(key));
+
+    if (storedItem && param) {
+      return JSON.parse(storedItem)[param];
+    }
+
+    return storedItem;
   }
 
   setItem(key: string | number, val: any): void {

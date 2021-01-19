@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@shared';
-import { ProfileComponent } from './components';
+import { AuthGuard, ErrorComponent } from '@shared';
+import {
+  LoginComponent,
+  ProfileComponent,
+  RegisterComponent,
+} from './components';
 import { UserResolver } from './resolvers';
 
 const routes: Routes = [
@@ -20,6 +24,17 @@ const routes: Routes = [
     component: ProfileComponent,
   },
   {
+    path: 'login',
+    component: LoginComponent,
+    resolve: {
+      fetchedUsers: UserResolver,
+    },
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
     path: 'contact-us',
     canActivate: [AuthGuard],
     resolve: {
@@ -31,14 +46,17 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'error',
+    component: ErrorComponent,
+  },
+  {
     path: '**',
-    redirectTo: '/',
+    redirectTo: '/error',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  // providers: [UserResolver],
 })
 export class AppRoutingModule {}

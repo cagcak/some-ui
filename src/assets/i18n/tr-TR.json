@@ -2,7 +2,43 @@
   "Home": "Anasayfa",
   "Profile": "Profilim",
   "Contact Us": "İletişim",
+  "Password": "Şifre",
+  "Telephone": "Telefon",
+  "Country": "Ülke",
+  "Turkey": "Türkiye",
+  "Language": "Dil seçimi",
+  "United States of America": "Amerika Birleşik Devletleri",
+  "United Kingdom": "Birleşik Krallık",
+  "Germany": "Almanya",
+  "Sweden": "İsveç",
+  "Brazil": "Brezilya",
+  "Already reigstered?": "Zaten kayıtlı mısınız?",
+  "Register": "Kayıt ol",
+  "Sign in": "Giriş yap",
+  "Sign out": "Çıkış yap",
+  "The Great Speech": "Nutuk",
+  "User not found": "KUllanıcı bulunamadı",
+  "error": "hata",
+  "Save": "Kaydet",
+  "form": {
+    "name": "İsim",
+    "error": {
+      "valid_name": "Geçerli bir isim giriniz",
+      "required_name": "İsim girmek <strong>zorunludur</strong>",
+      "valid_email": "Geçerli bir email addresi giriniz",
+      "required_email": "E-mail girişi <strong>zorunludur</strong>",
+      "valid_phone": "Geçerli bir telefon numarası giriniz",
+      "required_password": "Şifre girişi <strong>zorunludur</strong>",
+      "password": {
+        "_": "Girilen şifre aşağıdaki koşulları sağlamıyor: ",
+        "condition_0": "- En az sekiz karakter",
+        "condition_1": "- En az bir büyük harf",
+        "condition_2": "- En az bir rakam"
+      }
+    }
+  },
   "app": {
-    "footer": "Some UI, NGXS state management ve material tasarım ile desteklenmiş bir Angular 11 web uygulamasıdır"
+    "home": "Egemenlik kayıtsız şartsız milletindir.",
+    "footer": "Some UI, NGXS state management ve material tasarım ile desteklenmiş bir Angular 10 web uygulamasıdır"
   }
 }

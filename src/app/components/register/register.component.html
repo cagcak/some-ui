@@ -1,0 +1,126 @@
+<div fxFlexFill fxLayoutAlign="center center">
+  <form [formGroup]="userRegisterForm" *ngIf="userRegisterForm.controls as f">
+    <app-language-exchange
+      [isClassic]="true"
+      fxLayoutGap="20px"
+      fxLayoutAlign="end"
+    ></app-language-exchange>
+    <div fxLayoutGap="20px" fxLayout="row">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <!-- Name -->
+        <mat-form-field>
+          <mat-label>{{ "form.name" | translate }}</mat-label>
+          <input
+            matInput
+            type="name"
+            formControlName="name"
+            [errorStateMatcher]="errorState"
+            placeholder="Ex. Jane Doe"
+          />
+          <mat-error
+            *ngIf="f.email.hasError('pattern') && !f.email.hasError('required')"
+          >
+            {{ "form.error.valid_name" | translate }}
+          </mat-error>
+          <mat-error *ngIf="f.email.hasError('required')">
+            <span [innerHTML]="'form.error.required_name' | translate"></span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            [errorStateMatcher]="errorState"
+            placeholder="Ex. pat@example.com"
+          />
+          <mat-error
+            *ngIf="f.email.hasError('email') && !f.email.hasError('required')"
+          >
+            {{ "form.error.valid_email" | translate }}
+          </mat-error>
+          <mat-error *ngIf="f.email.hasError('required')">
+            <span [innerHTML]="'form.error.valid_email' | translate"></span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field>
+          <mat-label>{{ "Password" | translate }}</mat-label>
+          <input
+            matInput
+            type="password"
+            autocomplete
+            formControlName="password"
+            [errorStateMatcher]="passwordErrorState"
+            placeholder="Password"
+          />
+          <mat-error
+            *ngIf="
+              f.password.hasError('pattern') && !f.password.hasError('required')
+            "
+          >
+            <div>
+              {{ "form.error.password._" | translate }}
+              <p class="error-statement">
+                {{ "form.error.password.condition_0" | translate }}
+              </p>
+              <p class="error-statement">
+                {{ "form.error.password.condition_1" | translate }}
+              </p>
+              <p class="error-statement">
+                {{ "form.error.password.condition_2" | translate }}
+              </p>
+            </div>
+          </mat-error>
+          <mat-error *ngIf="f.email.hasError('required')">
+            <span
+              [innerHTML]="'form.error.required_password' | translate"
+            ></span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <!-- Phone -->
+        <mat-form-field>
+          <mat-label>{{ "Telephone" | translate }}</mat-label>
+          <input
+            matInput
+            type="phone"
+            formControlName="phone"
+            [errorStateMatcher]="errorState"
+          />
+          <span matPrefix>{{ selectedCountry | phone }} &nbsp;</span>
+          <mat-error *ngIf="f.phone.hasError('pattern')">
+            {{ "form.error.valid_phone" | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Country -->
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "Country" | translate }}</mat-label>
+          <mat-select [(value)]="selectedCountry">
+            <mat-option
+              *ngFor="let country of countryList"
+              [value]="country.code"
+              >{{ country.name | translate }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div style="margin-top: 100px" fxLayout="row" fxLayoutAlign="center">
+      <button mat-raised-button color="warn" (click)="submit()">
+        {{ "Register" | translate }}
+      </button>
+      <a mat-button color="accent" (click)="goToLogin()">
+        {{ "Already reigstered?" | translate }}
+      </a>
+    </div>
+  </form>
+</div>
+<app-color-schema></app-color-schema>

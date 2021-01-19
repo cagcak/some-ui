@@ -13,7 +13,11 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProfileComponent } from './components';
+import {
+  LoginComponent,
+  ProfileComponent,
+  RegisterComponent,
+} from './components';
 import { LocalStorageService } from './services';
 import { SessionState, SomeAppState } from './store';
 
@@ -22,7 +26,12 @@ function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent],
+  declarations: [
+    AppComponent,
+    ProfileComponent,
+    LoginComponent,
+    RegisterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,7 +42,7 @@ function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
     NgxsRouterPluginModule.forRoot(),
     NgxsResetPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({ key: SessionState }),
-    NgxsModule.forRoot([SomeAppState], {
+    NgxsModule.forRoot([SomeAppState, SessionState], {
       developmentMode: !environment.production,
     }),
     TranslateModule.forRoot({

@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
       </a>
     </ng-template>
     <ng-template #iconTemplateRef>
-      <mat-icon>{{ iconName }}</mat-icon>
+      <mat-icon *ngIf="iconName">{{ iconName }}</mat-icon>
       {{ iconLabel | translate }}
     </ng-template>
   `,

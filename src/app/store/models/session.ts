@@ -4,6 +4,7 @@ export namespace Session {
   export const NAME = 'SessionState';
   export const DEFAULTS = {
     user: null,
+    lang: 'en-US',
   } as State;
 
   export const OPTIONS = {
@@ -13,12 +14,15 @@ export namespace Session {
 
   export interface State {
     user: UserLogin;
+    lang: AppLanguages;
   }
 
   export interface UserLogin {
     id?: number;
     name: string;
     email: string;
-    password: string;
+    password?: string;
   }
+
+  export type AppLanguages = 'tr-TR' | 'en-US';
 }

@@ -30,6 +30,14 @@ export class SomeAppState {
     });
   }
 
+  static getUser(email: string) {
+    return createSelector([SomeAppState], ({ users }: SomeApp.State) => {
+      if (!email) return;
+
+      return users.find((user) => user.email === email);
+    });
+  }
+
   @Action(GetUserProfiles)
   getUserProfiles({ patchState }: StateContext<SomeApp.State>) {
     return this.userService.getUsers().pipe(

@@ -1,0 +1,80 @@
+<div fxFlexFill fxLayoutAlign="center center">
+  <form [formGroup]="userLoginForm" *ngIf="userLoginForm.controls as form">
+    <app-language-exchange
+      [isClassic]="true"
+      fxLayoutGap="20px"
+      fxLayoutAlign="end"
+    ></app-language-exchange>
+    <div fxLayoutGap="20px" fxLayout="row">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <!-- Email -->
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            [errorStateMatcher]="errorState"
+            placeholder="Ex. pat@example.com"
+          />
+          <mat-error
+            *ngIf="
+              form.email.hasError('email') && !form.email.hasError('required')
+            "
+          >
+            {{ "form.error.valid_email" | translate }}
+          </mat-error>
+          <mat-error *ngIf="form.email.hasError('required')">
+            <span [innerHTML]="'form.error.valid_email' | translate"></span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field>
+          <mat-label>{{ "Password" | translate }}</mat-label>
+          <input
+            matInput
+            type="password"
+            autocomplete
+            formControlName="password"
+            [errorStateMatcher]="passwordErrorState"
+            placeholder="Password"
+          />
+          <mat-error
+            *ngIf="
+              form.password.hasError('pattern') &&
+              !form.password.hasError('required')
+            "
+          >
+            <div>
+              {{ "form.error.password._" | translate }}
+              <p class="error-statement">
+                {{ "form.error.password.condition_0" | translate }}
+              </p>
+              <p class="error-statement">
+                {{ "form.error.password.condition_1" | translate }}
+              </p>
+              <p class="error-statement">
+                {{ "form.error.password.condition_2" | translate }}
+              </p>
+            </div>
+          </mat-error>
+          <mat-error *ngIf="form.email.hasError('required')">
+            <span
+              [innerHTML]="'form.error.required_password' | translate"
+            ></span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div style="margin-top: 100px" fxLayout="row" fxLayoutAlign="center">
+      <button mat-raised-button color="accent" (click)="submit()">
+        {{ "Sign in" | translate }}
+      </button>
+      <a mat-button color="warn" (click)="goToRegister()">
+        {{ "Register" | translate }}
+      </a>
+    </div>
+  </form>
+</div>
+<app-color-schema></app-color-schema>

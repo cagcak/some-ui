@@ -24,7 +24,7 @@ body {
   height: 100%;
 
   .content-layout {
-    height: 95%;
+    height: 90%;
   }
 
   .footer-layout {
@@ -45,6 +45,13 @@ body {
 
 .mat-sidenav {
   width: 320px;
+}
+
+.mat-toolbar p {
+  font: 400 16px Roboto, "Helvetica Neue", sans-serif;
+  white-space: break-spaces;
+  text-align: center;
+  width: 100%;
 }
 
 .card-wrapper {

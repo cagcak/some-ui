@@ -1,21 +1,25 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Session, SessionState } from 'src/app/store';
 
 @Component({
   selector: 'app-profile',
-  template: ` <p>profile works!</p> `,
+  template: `
+    <h3>{{ 'User Profile' | translate }}</h3>
+    <mat-list role="list" *ngIf="{ user: user$ | async } as data">
+      <mat-list-item *ngFor="let item of entries(data.user)" role="listitem">
+        {{ item[0] | translate | titlecase }}: {{ item[1] }}
+      </mat-list-item>
+    </mat-list>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   @Select(SessionState.getUser)
   user$: Observable<Session.UserLogin>;
 
-  constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    console.log(this);
-    this.user$.subscribe(console.log);
+  entries(object: Session.UserLogin) {
+    return Object.entries(object);
   }
 }

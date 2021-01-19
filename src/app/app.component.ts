@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterState } from '@ngxs/router-plugin';
-import { Select } from '@ngxs/store';
+import { TranslateService } from '@ngx-translate/core';
+import { Select, Store } from '@ngxs/store';
 import { ColorSchemeService } from '@shared';
 import { Observable } from 'rxjs';
 import { Layout } from './modules/shared/models';
+import { RemoveUserProfile, Session, SessionState } from './store';
 
 @Component({
   selector: 'app-root',
   template: `
     <div class="app-layout">
-      <mat-toolbar color="primary">
+      <mat-toolbar color="primary" *ngIf="user$ | async">
         <mat-toolbar-row>
           <button
             mat-icon-button
@@ -30,11 +31,19 @@ import { Layout } from './modules/shared/models';
               ></app-nav-link>
             </ng-container>
           </div>
-          <app-color-schema></app-color-schema>
-          <app-language-exchange></app-language-exchange>
+          <app-color-schema fxLayoutGap="20px"></app-color-schema>
+          <app-language-exchange fxLayoutGap="20px"></app-language-exchange>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              {{ 'Sign out' | translate }}
+            </button>
+          </mat-menu>
         </mat-toolbar-row>
       </mat-toolbar>
-
       <mat-sidenav-container>
         <mat-sidenav #sidenav>
           <mat-nav-list>
@@ -52,7 +61,7 @@ import { Layout } from './modules/shared/models';
           <div class="content-layout">
             <router-outlet></router-outlet>
           </div>
-          <div class="footer-layout">
+          <div class="footer-layout" *ngIf="user$ | async">
             <app-footer></app-footer>
           </div>
         </mat-sidenav-content>
@@ -62,8 +71,8 @@ import { Layout } from './modules/shared/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  @Select(RouterState)
-  url$: Observable<string>;
+  @Select(SessionState.getUser)
+  user$: Observable<Session.UserLogin>;
 
   title = 'some-ui';
 
@@ -75,17 +84,36 @@ export class AppComponent {
     },
     {
       iconLabel: 'Profile',
-      iconName: 'user',
+      iconName: 'account_circle',
       linkHref: '/profile',
     },
     {
-      iconLabel: 'Contact US',
+      iconLabel: 'Contact Us',
       iconName: 'account_box',
       linkHref: '/contact-us',
     },
   ];
 
-  constructor(private colorSchemeService: ColorSchemeService) {
+  constructor(
+    private colorSchemeService: ColorSchemeService,
+    private translate: TranslateService,
+    private store: Store
+  ) {
     this.colorSchemeService.load();
+    this.setLang();
+  }
+
+  private setLang(): void {
+    this.translate.addLangs(['en-US', 'tr-TR']);
+
+    const state = JSON.parse(
+      window.localStorage.getItem('SessionState')
+    ) as Session.State;
+
+    this.translate.use((state && state.lang) || 'en-US');
+  }
+
+  logout(): void {
+    this.store.dispatch(new RemoveUserProfile());
   }
 }

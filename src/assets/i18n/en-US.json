@@ -1,5 +1,24 @@
 {
+  "İsim": "Name",
+  "form": {
+    "name": "Name",
+    "error": {
+      "valid_name": "Please enter a valid name",
+      "required_name": "Name is <strong>required</strong>",
+      "valid_email": "Please enter a valid email address",
+      "required_email": "email is <strong>required</strong>",
+      "valid_phone": "Please enter a valid phone",
+      "required_password": "Password is <strong>required</strong>",
+      "password": {
+        "_": "The password you entered is not match to: ",
+        "condition_0": "- At least eight characters",
+        "condition_1": "- At least one uppercase",
+        "condition_2": "- At least one number"
+      }
+    }
+  },
   "app": {
-    "footer": "Some UI is an Angular 11 application powered by NGXS state management and angular material"
+    "home": "Authority, without any condition and reservation, belongs to the nation.",
+    "footer": "Some UI is an Angular 10 application powered by NGXS state management and angular material"
   }
 }

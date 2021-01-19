@@ -1,40 +1,54 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngxs/store';
+import { ChangeLanguage, Session } from '../../../../store';
 
 @Component({
   selector: 'app-language-exchange',
   template: `
-    <mat-form-field appearance="fill">
-      <mat-select
-        [(value)]="selected"
-        (selectionChange)="onLanguageChange($event)"
+    <ng-container *ngIf="isClassic; else elseTemplate">
+      <a
+        mat-button
+        *ngFor="let lang of translate.getLangs()"
+        (click)="onLanguageChange(lang)"
       >
-        <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
-          {{ languages[lang] }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+        {{ languages[lang] | translate }}
+      </a>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu">
+        <mat-icon>language</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <ng-container *ngFor="let lang of translate.getLangs()">
+          <button mat-menu-item (click)="onLanguageChange(lang)">
+            <span>{{ languages[lang] | translate }}</span>
+          </button>
+        </ng-container>
+      </mat-menu>
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageExchangeComponent {
-  selected: 'tr-TR' | 'en-US' = 'en-US';
+  @Input()
+  isClassic: boolean;
+
+  selected: Session.AppLanguages;
 
   languages = {
     'tr-TR': 'Türkçe',
     'en-US': 'English',
   };
 
-  constructor(public translate: TranslateService) {
-    translate.addLangs(['en-US', 'tr-TR']);
-    translate.setDefaultLang('en-US');
-
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/tr|tr-TR/) ? 'tr-TR' : 'en-US');
+  constructor(public translate: TranslateService, private store: Store) {
+    this.selected = (JSON.parse(
+      window.localStorage.getItem('SessionState')
+    ) as Session.State).lang;
   }
 
-  onLanguageChange($lang: MatSelectChange): void {
-    this.translate.use($lang.value);
+  onLanguageChange($lang: Session.AppLanguages): void {
+    this.translate.use($lang);
+    this.store.dispatch(new ChangeLanguage($lang));
   }
 }
